@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  main-server:
+    container_name: zomboid_app
+    build: .
+    restart: always
+    volumes:
+      - zomboid_app:/home/steam/project-zomboid-dedicated/:rw
+
+volumes:
+    zomboid_app:
+        external: true

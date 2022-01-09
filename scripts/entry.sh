@@ -5,5 +5,4 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAM_APP_DIR}" \
         +app_update "${STEAM_APP_ID}" validate \
         +quit
 
-bash "${STEAM_APP_DIR}/start-server.sh" \
-			-servername "${SERVER_NAME}"
+bash "${SCRIPTS_DIR}/start.sh"

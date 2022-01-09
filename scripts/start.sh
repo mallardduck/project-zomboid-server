@@ -4,15 +4,17 @@
 INIT_FILE="${SERVER_DATA_DIR}/Server/${SERVER_NAME}.inited"
 INI_FILE="${SERVER_DATA_DIR}/Server/${SERVER_NAME}.ini"
 if [[ ! -f "${INIT_FILE}" ]]; then
-	echo "========================================================="
-	echo "Starting server for 45 seconds to init configs..."
-	echo "========================================================="
-	timeout -k 9 45s bash "${STEAM_APP_DIR}/start-server.sh" \
-					-servername "${SERVER_NAME}" \
-					-adminpassword ${SERVER_ADMIN_CLI_PASS}
-	echo "========================================================="
-	echo "Ending server, then setting up configuration..."
-	echo "========================================================="
+	if [[ ! -f "${INI_FILE}" ]]; then
+		echo "========================================================="
+		echo "Starting server for 45 seconds to init configs..."
+		echo "========================================================="
+		timeout -k 9 45s bash "${STEAM_APP_DIR}/start-server.sh" \
+						-servername "${SERVER_NAME}" \
+						-adminpassword ${SERVER_ADMIN_CLI_PASS}
+		echo "========================================================="
+		echo "Ending server, then setting up configuration..."
+		echo "========================================================="
+	fi
 	if [ -f $INI_FILE ]; then
 		if [ "${SERVER_PUBLIC}" -eq "1" ]; then
 			echo "========================================================="

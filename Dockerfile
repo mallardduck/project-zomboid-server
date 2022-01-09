@@ -15,7 +15,7 @@ COPY etc/entry.sh "${HOMEDIR}/entry.sh"
 
 RUN set -x \
 	&& apt-get update \
-	&& apt-get install libsdl2-2.0 \
+	&& apt-get install -y libsdl2-2.0 \
 	&& mkdir -p "${STEAM_APP_DIR}" \
 	&& chmod 755 "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \
 	&& chown "${USER}:${USER}" "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \

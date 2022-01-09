@@ -11,10 +11,6 @@ ENV STEAM_APP_ID 380870
 ENV STEAM_APP project-zomboid
 ENV STEAM_APP_DIR "${HOMEDIR}/${STEAM_APP}-dedicated"
 
-USER ${USER}
-
-WORKDIR ${HOMEDIR}
-
 COPY etc/entry.sh "${HOMEDIR}/entry.sh"
 
 RUN set -x \
@@ -24,6 +20,10 @@ RUN set -x \
 	&& chmod 755 "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \
 	&& chown "${USER}:${USER}" "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \
 	&& rm -rf /var/lib/apt/lists/*
+
+USER ${USER}
+
+WORKDIR ${HOMEDIR}
 
 CMD ["bash", "entry.sh"]
 

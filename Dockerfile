@@ -17,8 +17,8 @@ RUN set -x \
 	&& apt-get update \
 	&& apt-get install -y libsdl2-2.0 \
 	&& mkdir -p "${STEAM_APP_DIR}" \
-	&& chmod 755 "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \
-	&& chown "${USER}:${USER}" "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" \
+	&& chmod 755 "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" "${HOMEDIR}/Zomboid/" \
+	&& chown "${USER}:${USER}" "${HOMEDIR}/entry.sh" "${STEAM_APP_DIR}" "${HOMEDIR}/Zomboid/" \
 	&& rm -rf /var/lib/apt/lists/*
 
 USER ${USER}

@@ -49,6 +49,20 @@ if [[ ! -f "${INIT_FILE}" ]]; then
 			grep "^Password=" "$INI_FILE"
 			echo "========================================================="
 		fi
+    echo "========================================================="
+    echo "Server PW was provided, setting in config..."
+    grep "^RCONPort=" "$INI_FILE"
+    sed -ri "s/^RCONPort=(.*)$/RCONPort=${SERVER_RCON_PORT}/" "$INI_FILE"
+    grep "^RCONPort=" "$INI_FILE"
+    echo "========================================================="
+    if [[ ! -z "$SERVER_RCON_PASSWORD" ]]; then
+      echo "========================================================="
+      echo "Server RCON PW was provided, setting in config..."
+      grep "^RCONPassword=" "$INI_FILE"
+      sed -ri "s/^RCONPassword=(.*)$/RCONPassword=${SERVER_RCON_PASSWORD}/" "$INI_FILE"
+      grep "^RCONPassword=" "$INI_FILE"
+      echo "========================================================="
+    fi
 		touch ${INIT_FILE}
 		echo "$(date)" > ${INIT_FILE}
 	fi

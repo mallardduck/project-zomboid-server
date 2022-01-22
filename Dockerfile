@@ -13,6 +13,8 @@ ENV SERVER_PASSWORD ''
 ENV SERVER_ADMIN_CLI_PASS 'letmein'
 ENV SERVER_PUBLIC 0
 ENV SERVER_UPNP 0
+ENV SERVER_RCON_PORT 27015
+ENV SERVER_RCON_PASSWORD ''
 ENV SERVER_USER_COUNT 16
 # End of things users should edit.
 RUN export USER_PORT_START=$(expr 16261 + 1)
@@ -48,4 +50,5 @@ CMD ["bash", "scripts/entry.sh"]
 EXPOSE 8766/udp \
 	8767/udp \
 	16261/udp \
-	"${USER_PORTS}"
+	"${USER_PORTS}" \
+	"${SERVER_RCON_PORT}/tcp"

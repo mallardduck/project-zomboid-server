@@ -114,8 +114,10 @@ function config_set_server_mods {
 			echo "Mod settings provide will configure now..."
 			report_and_log_config_value "^Mods="
 			sed -ri "s/^Mods=(.*)$/Mods=${SERVER_MODS}/" "$INI_FILE"
+			report_and_log_config_value "^Mods="
 			report_and_log_config_value "^WorkshopItems="
 			sed -ri "s/^WorkshopItems=(.*)$/WorkshopItems=${SERVER_WORKSHOP_IDS}/" "$INI_FILE"
+			report_and_log_config_value "^WorkshopItems="
 			echo "========================================================="
 		fi
 	fi

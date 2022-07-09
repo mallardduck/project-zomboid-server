@@ -16,10 +16,12 @@ ENV SERVER_UPNP 0
 ENV SERVER_RCON_PORT 27015
 ENV SERVER_RCON_PASSWORD ''
 ENV SERVER_USER_COUNT 16
+ENV SERVER_MODS ''
 # End of things users should edit.
 RUN export USER_PORT_START=$(expr 16261 + 1)
 RUN export USER_PORT_END=$(expr 16261 + 1 + $SERVER_USER_COUNT)
 RUN export USER_PORTS="${USER_PORT_START}-${USER_PORT_END}/udp"
+RUN export SERVER_MODS="${SERVER_MODS}"
 # Steam things that shouldn't really be changed much...
 ENV STEAM_APP_ID 380870
 ENV STEAM_APP project-zomboid

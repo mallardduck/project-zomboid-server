@@ -29,7 +29,7 @@ ENV SERVER_DATA_DIR "${HOMEDIR}/Zomboid"
 
 RUN set -x \
 	&& apt-get update \
-	&& apt-get install -y libsdl2-2.0 \
+	&& apt-get install -y libsdl2-2.0 vim \
 	&& mkdir -p "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \
 	&& chmod 755 "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \
 	&& chown "${USER}:${USER}" "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \

@@ -47,6 +47,8 @@ RUN set -x \
 
 USER ${USER}
 
+RUN mkdir /home/steam/Zomboid/mods
+
 WORKDIR ${HOMEDIR}
 
 CMD ["bash", "scripts/entry.sh"]

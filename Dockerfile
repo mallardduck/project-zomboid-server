@@ -43,7 +43,7 @@ COPY scripts "${SCRIPTS_DIR}"
 RUN set -x \
 	&& chmod 755 "${SCRIPTS_DIR}" \
 	&& chown "${USER}:${USER}" "${SCRIPTS_DIR}"
-	&& chmod +x  "${SCRIPTS_DIR}/*.sh"
+	&& cd "$SCRIPTS_DIR" chmod +x  ./*.sh
 
 USER ${USER}
 

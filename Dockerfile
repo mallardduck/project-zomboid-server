@@ -19,9 +19,6 @@ ENV SERVER_USER_COUNT 16
 ENV SERVER_MODS ''
 ENV SERVER_WORKSHOP_IDS ''
 # End of things users should edit.
-RUN export USER_PORT_START=$(expr 16261 + 1)
-RUN export USER_PORT_END=$(expr 16261 + 1 + $SERVER_USER_COUNT)
-RUN export USER_PORTS="${USER_PORT_START}-${USER_PORT_END}/udp"
 RUN export SERVER_MODS="${SERVER_MODS}"
 RUN export SERVER_WORKSHOP_IDS="${SERVER_WORKSHOP_IDS}"
 # Steam things that shouldn't really be changed much...
@@ -58,5 +55,4 @@ EXPOSE 8766/udp \
 	8767/udp \
 	16261/udp \
 	16262/udp \
-	"${USER_PORTS}" \
 	"${SERVER_RCON_PORT}/tcp"

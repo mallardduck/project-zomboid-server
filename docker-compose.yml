@@ -5,6 +5,8 @@ services:
     container_name: zomboid_app
     build: .
     restart: always
+    environment:
+      - SERVER_RAM=16g
     volumes:
       - zomboid_app:/home/steam/project-zomboid-dedicated/:rw
 

@@ -123,6 +123,42 @@ function config_set_server_mods {
 	fi
 }
 
+function app_launcher_ram {
+    LAUNCHER_JSON="${HOMEDIR}/project-zomboid-dedicated/ProjectZomboid64.json"
+    if [ -f "$LAUNCHER_JSON" ]; then
+        if [[ -n $SERVER_RAM ]]; then
+            echo "========================================================="
+            echo "Applying custom Server RAM limit: $SERVER_RAM..."
+
+            # Log current -Xmx setting before modification
+            local json_results
+            json_results=$(grep -o '"-Xmx[^"]*"' "$LAUNCHER_JSON")
+            echo "Before update: $json_results"
+            echo "Before update: $json_results" >> "$LOG_FILE"
+
+            # Backup the original JSON file
+            cp "$LAUNCHER_JSON" "$LAUNCHER_JSON.bak"
+
+            # Update -Xmx value
+            sed -i "s/-Xmx[0-9]\+[mg]/-Xmx${SERVER_RAM}/" "$LAUNCHER_JSON"
+
+            # Remove all existing -Xms values (to prevent duplicates)
+            sed -i '/"-Xms[0-9]\+[mg]",/d' "$LAUNCHER_JSON"
+
+            # Insert "-Xms" as a new entry after "-Xmx"
+            sed -i "/-Xmx${SERVER_RAM}/a \                \"-Xms${SERVER_RAM}\"," "$LAUNCHER_JSON"
+
+
+            # Log updated settings
+            json_results=$(grep -o '"-Xmx[^"]*"' "$LAUNCHER_JSON")
+            echo "After update: $json_results"
+            echo "After update: $json_results" >> "$LOG_FILE"
+
+            echo "========================================================="
+        fi
+    fi
+}
+
 # First boot loop...
 if [[ ! -f "${INIT_FILE}" ]]; then
 	maybe_init_server_config;
@@ -150,6 +186,8 @@ config_set_server_upnp;
 config_set_server_password;
 config_set_server_rcon;
 config_set_server_mods;
+
+app_launcher_ram;
 
 # Start the actual server with the server name...
 if [[ -f "${INIT_FILE}" ]]; then

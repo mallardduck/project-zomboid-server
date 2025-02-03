@@ -52,8 +52,6 @@ WORKDIR ${HOMEDIR}
 CMD ["bash", "scripts/entry.sh"]
 
 # Expose ports
-EXPOSE 8766/udp \
-	8767/udp \
-	16261/udp \
+EXPOSE 16261/udp \
 	16262/udp \
 	"${SERVER_RCON_PORT}/tcp"

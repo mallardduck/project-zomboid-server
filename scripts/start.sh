@@ -123,6 +123,19 @@ function config_set_server_mods {
 	fi
 }
 
+function config_set_server_map {
+	if [ -f "$INI_FILE" ]; then
+		if [[ -n $SERVER_MAP ]]; then
+			echo "========================================================="
+			echo "Map settings provide will configure now..."
+			report_and_log_config_value "^Map="
+			sed -ri "s/^Map=(.*)$/Map=${SERVER_MAP}/" "$INI_FILE"
+			report_and_log_config_value "^Map="
+			echo "========================================================="
+		fi
+	fi
+}
+
 function app_launcher_ram {
     LAUNCHER_JSON="${HOMEDIR}/project-zomboid-dedicated/ProjectZomboid64.json"
     if [ -f "$LAUNCHER_JSON" ]; then
@@ -186,6 +199,7 @@ config_set_server_upnp;
 config_set_server_password;
 config_set_server_rcon;
 config_set_server_mods;
+config_set_server_map;
 
 app_launcher_ram;
 

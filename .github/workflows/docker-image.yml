@@ -23,27 +23,44 @@ jobs:
       contents: read
       packages: write
 
+    strategy:
+      matrix:
+        include:
+          # B41 stable — tagged :b41 and :latest
+          - branch: ""
+            tag: "b41"
+            extra_tag: "latest"
+          # B42 unstable beta — tagged :b42
+          - branch: "unstable"
+            tag: "b42"
+            extra_tag: ""
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Compute image tags
+        id: tags
+        run: |
+          BASE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          TAGS="${BASE}:${{ matrix.tag }}"
+          if [[ -n "${{ matrix.extra_tag }}" ]]; then
+            TAGS="${TAGS},${BASE}:${{ matrix.extra_tag }}"
+          fi
+          echo "tags=${TAGS}" >> "$GITHUB_OUTPUT"
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.tags.outputs.tags }}
+          build-args: |
+            STEAM_BETA_BRANCH=${{ matrix.branch }}

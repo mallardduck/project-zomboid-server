@@ -23,6 +23,10 @@ ENV SERVER_RAM ''
 # End of things users should edit.
 RUN export SERVER_MODS="${SERVER_MODS}"
 RUN export SERVER_WORKSHOP_IDS="${SERVER_WORKSHOP_IDS}"
+# Set to a Steam beta branch name to use that branch (e.g. "unstable" for B42).
+# Can be overridden at runtime via -e STEAM_BETA_BRANCH=unstable.
+ARG STEAM_BETA_BRANCH=""
+ENV STEAM_BETA_BRANCH=${STEAM_BETA_BRANCH}
 # Steam things that shouldn't really be changed much...
 ENV STEAM_APP_ID 380870
 ENV STEAM_APP project-zomboid

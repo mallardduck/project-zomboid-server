@@ -27,7 +27,7 @@ function maybe_init_server_config {
 		echo "Starting server for 45 seconds to init configs..."
 		echo "========================================================="
 		if [[ "${STEAM_BETA_BRANCH}" == "unstable" ]]; then
-			timeout -k 9 45s expect "${SCRIPTS_DIR}/init-server.exp" \
+			timeout -k 9 120s expect "${SCRIPTS_DIR}/init-server.exp" \
 							"${STEAM_APP_DIR}" "${SERVER_NAME}" "${SERVER_ADMIN_CLI_PASS}"
 		else
 			timeout -k 9 45s bash "${STEAM_APP_DIR}/start-server.sh" \

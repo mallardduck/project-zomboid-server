@@ -23,10 +23,12 @@ ENV SERVER_RAM ''
 # End of things users should edit.
 RUN export SERVER_MODS="${SERVER_MODS}"
 RUN export SERVER_WORKSHOP_IDS="${SERVER_WORKSHOP_IDS}"
+
 # Set to a Steam beta branch name to use that branch (e.g. "unstable" for B42).
 # Can be overridden at runtime via -e STEAM_BETA_BRANCH=unstable.
 ARG STEAM_BETA_BRANCH=""
 ENV STEAM_BETA_BRANCH=${STEAM_BETA_BRANCH}
+
 # Steam things that shouldn't really be changed much...
 ENV STEAM_APP_ID 380870
 ENV STEAM_APP project-zomboid
@@ -36,7 +38,7 @@ ENV SERVER_DATA_DIR "${HOME}/Zomboid"
 
 RUN set -x \
 	&& apt-get update \
-	&& apt-get install -y libsdl2-2.0 vim expect \
+	&& apt-get install --no-install-recommends -y libsdl2-2.0 vim expect \
 	&& mkdir -p "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \
 	&& chmod 755 "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \
 	&& chown "${USER}:${USER}" "${STEAM_APP_DIR}" "${SERVER_DATA_DIR}" \
@@ -56,6 +58,7 @@ ENTRYPOINT []
 CMD ["bash", "scripts/entry.sh"]
 
 # Expose ports
-EXPOSE 16261/udp \
-	16262/udp \
-	"${SERVER_RCON_PORT}/tcp"
+EXPOSE 16261/udp
+EXPOSE 16262/udp
+# Default RCONN port
+EXPOSE 27015/tcp

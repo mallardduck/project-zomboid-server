@@ -1,7 +1,7 @@
 ############################################################
 # Dockerfile that builds a ProjectZomboid server
 ############################################################
-FROM cm2network/steamcmd:root
+FROM steamcmd/steamcmd:ubuntu-24
 
 LABEL maintainer="self@danpock.me"
 
@@ -30,9 +30,9 @@ ENV STEAM_BETA_BRANCH=${STEAM_BETA_BRANCH}
 # Steam things that shouldn't really be changed much...
 ENV STEAM_APP_ID 380870
 ENV STEAM_APP project-zomboid
-ENV STEAM_APP_DIR "${HOMEDIR}/${STEAM_APP}-dedicated"
-ENV SCRIPTS_DIR "${HOMEDIR}/scripts"
-ENV SERVER_DATA_DIR "${HOMEDIR}/Zomboid"
+ENV STEAM_APP_DIR "${HOME}/${STEAM_APP}-dedicated"
+ENV SCRIPTS_DIR "${HOME}/scripts"
+ENV SERVER_DATA_DIR "${HOME}/Zomboid"
 
 RUN set -x \
 	&& apt-get update \
@@ -48,12 +48,11 @@ RUN set -x \
 	&& chown "${USER}:${USER}" "${SCRIPTS_DIR}" \
 	&& cd "$SCRIPTS_DIR" chmod +x  ./*.sh
 
-USER ${USER}
+RUN mkdir -p "${SERVER_DATA_DIR}/mods"
 
-RUN mkdir /home/steam/Zomboid/mods
+WORKDIR ${HOME}
 
-WORKDIR ${HOMEDIR}
-
+ENTRYPOINT []
 CMD ["bash", "scripts/entry.sh"]
 
 # Expose ports

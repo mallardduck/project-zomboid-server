@@ -137,7 +137,7 @@ function config_set_server_map {
 }
 
 function app_launcher_ram {
-    LAUNCHER_JSON="${HOMEDIR}/project-zomboid-dedicated/ProjectZomboid64.json"
+    LAUNCHER_JSON="${HOME}/project-zomboid-dedicated/ProjectZomboid64.json"
     if [ -f "$LAUNCHER_JSON" ]; then
         if [[ -n $SERVER_RAM ]]; then
             echo "========================================================="

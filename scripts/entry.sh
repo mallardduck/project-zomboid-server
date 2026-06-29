@@ -7,7 +7,7 @@ if [[ -n "${STEAM_BETA_BRANCH}" ]]; then
     BETA_FLAG=(-beta "${STEAM_BETA_BRANCH}")
 fi
 
-bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAM_APP_DIR}" \
+steamcmd +force_install_dir "${STEAM_APP_DIR}" \
         +login anonymous \
         +app_update "${STEAM_APP_ID}" "${BETA_FLAG[@]}" validate \
         +quit

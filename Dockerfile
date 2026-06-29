@@ -6,20 +6,20 @@ FROM steamcmd/steamcmd:ubuntu-24
 LABEL maintainer="self@danpock.me"
 
 # Things that users should change...
-ENV SERVER_NAME my-first-zomboid-server
-ENV SERVER_DISPLAY_NAME 'My First Zomboid Server'
-ENV SERVER_DESCRIPTION 'This is our project zomboid server for fun.'
-ENV SERVER_PASSWORD ''
-ENV SERVER_ADMIN_CLI_PASS 'letmein'
-ENV SERVER_PUBLIC 0
-ENV SERVER_UPNP 0
-ENV SERVER_RCON_PORT 27015
-ENV SERVER_RCON_PASSWORD ''
-ENV SERVER_USER_COUNT 16
-ENV SERVER_MODS ''
-ENV SERVER_MAP ''
-ENV SERVER_WORKSHOP_IDS ''
-ENV SERVER_RAM ''
+ENV SERVER_NAME=my-first-zomboid-server
+ENV SERVER_DISPLAY_NAME='My First=Zomboid=Server'
+ENV SERVER_DESCRIPTION='This is our project zomboid server for=fun.'
+ENV SERVER_PASSWORD=''
+ENV SERVER_ADMIN_CLI_PASS='letmein'
+ENV SERVER_PUBLIC=0
+ENV SERVER_UPNP=0
+ENV SERVER_RCON_PORT=27015
+ENV SERVER_RCON_PASSWORD=''
+ENV SERVER_USER_COUNT=16
+ENV SERVER_MODS=''
+ENV SERVER_MAP=''
+ENV SERVER_WORKSHOP_IDS=''
+ENV SERVER_RAM=''
 # End of things users should edit.
 RUN export SERVER_MODS="${SERVER_MODS}"
 RUN export SERVER_WORKSHOP_IDS="${SERVER_WORKSHOP_IDS}"
@@ -30,11 +30,11 @@ ARG STEAM_BETA_BRANCH=""
 ENV STEAM_BETA_BRANCH=${STEAM_BETA_BRANCH}
 
 # Steam things that shouldn't really be changed much...
-ENV STEAM_APP_ID 380870
-ENV STEAM_APP project-zomboid
-ENV STEAM_APP_DIR "${HOME}/${STEAM_APP}-dedicated"
-ENV SCRIPTS_DIR "${HOME}/scripts"
-ENV SERVER_DATA_DIR "${HOME}/Zomboid"
+ENV STEAM_APP_ID=380870
+ENV STEAM_APP=project-zomboid
+ENV STEAM_APP_DIR="${HOME}/${STEAM_APP}-dedicated"
+ENV SCRIPTS_DIR="${HOME}/scripts"
+ENV SERVER_DATA_DIR="${HOME}/Zomboid"
 
 RUN set -x \
 	&& apt-get update \

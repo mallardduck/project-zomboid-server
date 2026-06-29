@@ -26,7 +26,7 @@ function maybe_init_server_config {
 		echo "========================================================="
 		echo "Starting server for 45 seconds to init configs..."
 		echo "========================================================="
-		timeout -k 9 45s bash "${STEAM_APP_DIR}/start-server.sh" \
+		echo "${SERVER_ADMIN_CLI_PASS}" | timeout -k 9 45s bash "${STEAM_APP_DIR}/start-server.sh" \
 						-servername "${SERVER_NAME}" \
 						-adminpassword "${SERVER_ADMIN_CLI_PASS}"
 		echo "========================================================="

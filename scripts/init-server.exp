@@ -1,4 +1,4 @@
-#!/usr/bin/expect -f
+#! /usr/bin/expect -f
 
 set steam_app_dir [lindex $argv 0]
 set server_name   [lindex $argv 1]
@@ -10,6 +10,10 @@ spawn bash "$steam_app_dir/start-server.sh" -servername $server_name
 
 expect {
     "Enter new administrator password:" {
+        send "$admin_pass\r"
+        exp_continue
+    }
+    "Confirm the password:" {
         send "$admin_pass\r"
         exp_continue
     }

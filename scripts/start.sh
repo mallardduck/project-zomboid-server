@@ -34,19 +34,13 @@ function report_and_log_config_value {
 function maybe_init_server_config {
 	if [[ ! -f "${INI_FILE}" ]]; then
 		echo "========================================================="
-		echo "Starting server for 90 seconds to init configs..."
+		echo "Starting server to init configs (waiting for it to fully start, then stopping it)..."
 		echo "========================================================="
-		if [[ "${STEAM_BETA_BRANCH}" == "unstable" ]]; then
-			timeout -k 9 90s expect "${SCRIPTS_DIR}/init-server.exp" \
-							"${STEAM_APP_DIR}" "${SERVER_NAME}" "${SERVER_ADMIN_CLI_PASS}"
-		else
-			timeout -k 9 90s bash "${STEAM_APP_DIR}/start-server.sh" \
-							-servername "${SERVER_NAME}" \
-							-adminpassword "${SERVER_ADMIN_CLI_PASS}"
-		fi
+		timeout -k 9 300s expect "${SCRIPTS_DIR}/init-server.exp" \
+						"${STEAM_APP_DIR}" "${SERVER_NAME}" "${SERVER_ADMIN_CLI_PASS}"
 		local exit_code=$?
 		if [[ $exit_code -eq 124 ]]; then
-			echo "Server init timed out (expected) — proceeding with config setup."
+			echo "Server init timed out waiting for startup/shutdown — proceeding with config setup anyway."
 		elif [[ $exit_code -ne 0 ]]; then
 			echo "Server init exited with code ${exit_code}."
 		fi

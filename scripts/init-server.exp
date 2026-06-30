@@ -1,10 +1,17 @@
 #! /usr/bin/expect -f
+#
+# Boots the server once so it writes its default config (Server/<name>.ini),
+# then stops it gracefully via the "quit" console command once it reports
+# fully started. Waiting for that log line (instead of a fixed timeout)
+# avoids killing the process mid map-generation, which previously left the
+# world in a half-initialized state (null IsoMetaGrid) on the next boot.
 
 set steam_app_dir [lindex $argv 0]
 set server_name   [lindex $argv 1]
 set admin_pass    [lindex $argv 2]
 
-set timeout 90
+# Safety net only - normal exit happens as soon as "SERVER STARTED" is seen.
+set timeout 280
 
 spawn bash "$steam_app_dir/start-server.sh" -servername $server_name -adminpassword $admin_pass
 
@@ -17,5 +24,14 @@ expect {
         send "$admin_pass\r"
         exp_continue
     }
+    "SERVER STARTED" {
+        send "quit\r"
+        exp_continue
+    }
     eof
+    timeout {
+        puts "init-server.exp: timed out waiting for SERVER STARTED; killing process."
+        exec kill -TERM [exp_pid]
+        expect eof
+    }
 }

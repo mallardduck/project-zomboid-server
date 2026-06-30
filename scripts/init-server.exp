@@ -4,7 +4,7 @@ set steam_app_dir [lindex $argv 0]
 set server_name   [lindex $argv 1]
 set admin_pass    [lindex $argv 2]
 
-set timeout 120
+set timeout 90
 
 spawn bash "$steam_app_dir/start-server.sh" -servername $server_name -adminpassword $admin_pass
 

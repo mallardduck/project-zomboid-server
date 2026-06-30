@@ -28,7 +28,8 @@ expect {
         send "quit\r"
         exp_continue
     }
-    eof
+    eof {
+    }
     timeout {
         puts "init-server.exp: timed out waiting for SERVER STARTED; killing process."
         exec kill -TERM [exp_pid]

@@ -24,8 +24,8 @@ ENV SERVER_RAM=''
 RUN export SERVER_MODS="${SERVER_MODS}"
 RUN export SERVER_WORKSHOP_IDS="${SERVER_WORKSHOP_IDS}"
 
-# Set to a Steam beta branch name to use that branch (e.g. "unstable" for B42).
-# Can be overridden at runtime via -e STEAM_BETA_BRANCH=unstable.
+# Set to a Steam beta branch name to use that branch (e.g. "legacy41" for B41).
+# Can be overridden at runtime via -e STEAM_BETA_BRANCH=legacy41.
 ARG STEAM_BETA_BRANCH=""
 ENV STEAM_BETA_BRANCH=${STEAM_BETA_BRANCH}
 

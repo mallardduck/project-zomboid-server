@@ -26,13 +26,13 @@ jobs:
     strategy:
       matrix:
         include:
-          # B41 stable — tagged :b41 and :latest
+          # B42 stable — tagged :b42 and :latest
           - branch: ""
-            tag: "b41"
-            extra_tag: "latest"
-          # B42 unstable beta — tagged :b42
-          - branch: "unstable"
             tag: "b42"
+            extra_tag: "latest"
+          # B41 legacy — tagged :b41
+          - branch: "legacy41"
+            tag: "b41"
             extra_tag: ""
 
     steps:

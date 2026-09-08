@@ -7,8 +7,8 @@ services:
     restart: always
     environment:
       - SERVER_RAM=16g
-      # Uncomment for the B42 beta branch, or leave blank for B41 stable.
-      # - STEAM_BETA_BRANCH=unstable
+      # Uncomment to stay on the legacy B41 branch, or leave blank for B42 stable.
+      # - STEAM_BETA_BRANCH=legacy41
     volumes:
       - zomboid_app:/home/steam/project-zomboid-dedicated/:rw
 

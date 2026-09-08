@@ -238,7 +238,8 @@ if [[ -f "${INIT_FILE}" ]]; then
 	echo "Starting server, time to get to playing..."
 	echo "========================================================="
 	bash "${STEAM_APP_DIR}/start-server.sh" \
-				-servername "${SERVER_NAME}"
+				-servername "${SERVER_NAME}" \
+				-adminpassword "${SERVER_ADMIN_CLI_PASS}"
 else
 	# In theory it should never reach this point...
 	echo "========================================================="

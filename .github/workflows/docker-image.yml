@@ -30,10 +30,6 @@ jobs:
           - branch: ""
             tag: "b42"
             extra_tag: "latest"
-          # B41 legacy — tagged :b41
-          - branch: "legacy41"
-            tag: "b41"
-            extra_tag: ""
 
     steps:
       - name: Checkout repository

@@ -148,6 +148,25 @@ function config_set_server_mods {
 	fi
 }
 
+function config_set_server_lua_checksum {
+	if [ -f "$INI_FILE" ]; then
+		if [[ -n $SERVER_DO_LUA_CHECKSUM ]]; then
+			echo "========================================================="
+			echo "Setting DoLuaChecksum setting now..."
+			report_and_log_config_value "^DoLuaChecksum="
+			if [[ "${SERVER_DO_LUA_CHECKSUM}" == "0" ]]; then
+				echo "Turning OFF the DoLuaChecksum setting (needed by some mods)"
+				sed -ri "s/^DoLuaChecksum=.*$/DoLuaChecksum=false/" "$INI_FILE"
+			else
+				echo "Turning ON the DoLuaChecksum setting"
+				sed -ri "s/^DoLuaChecksum=.*$/DoLuaChecksum=true/" "$INI_FILE"
+			fi
+			report_and_log_config_value "^DoLuaChecksum="
+			echo "========================================================="
+		fi
+	fi
+}
+
 function config_set_server_map {
 	if [ -f "$INI_FILE" ]; then
 		if [[ -n $SERVER_MAP ]]; then
@@ -228,6 +247,7 @@ config_set_server_upnp
 config_set_server_password
 config_set_server_rcon
 config_set_server_mods
+config_set_server_lua_checksum
 config_set_server_map
 
 app_launcher_ram
